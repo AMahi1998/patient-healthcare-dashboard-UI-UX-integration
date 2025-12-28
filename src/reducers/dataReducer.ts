@@ -1,64 +1,53 @@
-/**
- * Data Reducer and Action Types
- * Manages patient data state and API operations
- */
+import { Dispatch, SetStateAction } from 'react';
 
-import { PatientData } from '../api';
+export interface PatientData {
+  name: string;
+  age: number;
+  gender: string;
+  date_of_birth?: string;
+  phone_number?: string;
+  emergency_contact?: string;
+  insurance_type?: string;
+  profile_picture?: string;
+  diagnosis_history?: any[];
+  lab_results?: any[];
+  vital_signs?: any;
+}
 
-/**
- * Action Types
- */
 export enum ActionType {
-  // Loading states
   LOADING_START = 'LOADING_START',
   LOADING_END = 'LOADING_END',
 
-  // Success states
   FETCH_PATIENTS_SUCCESS = 'FETCH_PATIENTS_SUCCESS',
   FETCH_PATIENT_SUCCESS = 'FETCH_PATIENT_SUCCESS',
   FETCH_MEDICAL_HISTORY_SUCCESS = 'FETCH_MEDICAL_HISTORY_SUCCESS',
   FETCH_LAB_RESULTS_SUCCESS = 'FETCH_LAB_RESULTS_SUCCESS',
 
-  // Error states
   SET_ERROR = 'SET_ERROR',
   CLEAR_ERROR = 'CLEAR_ERROR',
 
-  // Data updates
   UPDATE_PATIENT = 'UPDATE_PATIENT',
   CLEAR_DATA = 'CLEAR_DATA',
 }
 
-/**
- * Action Interface
- */
 export interface Action {
   type: ActionType;
   payload?: any;
 }
 
-/**
- * State Interface
- */
 export interface DataState {
-  // Patient data
   patients: PatientData[];
   currentPatient: PatientData | null;
   
-  // Loading and error states
   loading: boolean;
   error: string | null;
   
-  // Additional data
   medicalHistory: any[] | null;
   labResults: any[] | null;
   
-  // Meta information
   lastUpdated: Date | null;
 }
 
-/**
- * Initial State
- */
 export const initialState: DataState = {
   patients: [],
   currentPatient: null,
@@ -69,13 +58,8 @@ export const initialState: DataState = {
   lastUpdated: null,
 };
 
-/**
- * Reducer Function
- * Handles all state changes based on actions
- */
 export const dataReducer = (state: DataState, action: Action): DataState => {
   switch (action.type) {
-    // Loading
     case ActionType.LOADING_START:
       return {
         ...state,
@@ -89,7 +73,6 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
         loading: false,
       };
 
-    // Fetch patients success
     case ActionType.FETCH_PATIENTS_SUCCESS:
       return {
         ...state,
@@ -99,7 +82,6 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
         lastUpdated: new Date(),
       };
 
-    // Fetch single patient success
     case ActionType.FETCH_PATIENT_SUCCESS:
       return {
         ...state,
@@ -109,7 +91,6 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
         lastUpdated: new Date(),
       };
 
-    // Fetch medical history success
     case ActionType.FETCH_MEDICAL_HISTORY_SUCCESS:
       return {
         ...state,
@@ -119,7 +100,6 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
         lastUpdated: new Date(),
       };
 
-    // Fetch lab results success
     case ActionType.FETCH_LAB_RESULTS_SUCCESS:
       return {
         ...state,
@@ -129,7 +109,6 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
         lastUpdated: new Date(),
       };
 
-    // Set error
     case ActionType.SET_ERROR:
       return {
         ...state,
@@ -137,14 +116,12 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
         loading: false,
       };
 
-    // Clear error
     case ActionType.CLEAR_ERROR:
       return {
         ...state,
         error: null,
       };
 
-    // Update patient
     case ActionType.UPDATE_PATIENT:
       return {
         ...state,
@@ -152,7 +129,6 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
         lastUpdated: new Date(),
       };
 
-    // Clear all data
     case ActionType.CLEAR_DATA:
       return {
         ...initialState,
@@ -163,10 +139,7 @@ export const dataReducer = (state: DataState, action: Action): DataState => {
   }
 };
 
-/**
- * Action Creators
- * Helper functions to create actions
- */
+
 export const actionCreators = {
   startLoading: (): Action => ({
     type: ActionType.LOADING_START,

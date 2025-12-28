@@ -1,21 +1,18 @@
-/**
- * Axios API Client Configuration
- * Handles all HTTP requests to Coalition Technologies Patient Data API
- * with proper authentication, error handling, and interceptors
- */
-
+// API client with auth and error handling
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
 
-// API Configuration from environment variables
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://fedskillstest.coalitiontechnologies.workers.dev';
-const API_USERNAME = process.env.REACT_APP_API_USERNAME || 'coalition';
-const API_PASSWORD = process.env.REACT_APP_API_PASSWORD || 'skills-test';
+// API config from env (NO FALLBACKS)
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_USERNAME = process.env.REACT_APP_API_USERNAME;
+const API_PASSWORD = process.env.REACT_APP_API_PASSWORD;
 const API_TIMEOUT = parseInt(process.env.REACT_APP_API_TIMEOUT || '10000', 10);
 
-console.log('API Configuration:');
-console.log('  Base URL:', API_BASE_URL);
-console.log('  Username:', API_USERNAME);
-console.log('  Environment:', process.env.NODE_ENV);
+if (!API_BASE_URL || !API_USERNAME || !API_PASSWORD) {
+  console.error('Missing API credentials in .env');
+  throw new Error('API credentials not configured');
+}
+
+console.log('API Config:', { baseURL: API_BASE_URL, env: process.env.NODE_ENV });
 
 /**
  * Create and configure axios instance with basic auth

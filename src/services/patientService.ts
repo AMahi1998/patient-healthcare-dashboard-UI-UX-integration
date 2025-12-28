@@ -1,15 +1,19 @@
-// Patient Service for API calls
-const API_URL = 'https://fedskillstest.coalitiontechnologies.workers.dev';
-const USERNAME = 'coalition';
-const PASSWORD = 'skills-test';
+// API credentials from env only - never hardcoded
+const API_URL = process.env.REACT_APP_API_BASE_URL;
+const USERNAME = process.env.REACT_APP_API_USERNAME;
+const PASSWORD = process.env.REACT_APP_API_PASSWORD;
 
-// Create Basic Auth header
+if (!API_URL || !USERNAME || !PASSWORD) {
+  throw new Error('Missing API credentials in .env');
+}
+
 const createAuthHeader = () => {
   const credentials = `${USERNAME}:${PASSWORD}`;
   const encodedCredentials = btoa(credentials);
   return `Basic ${encodedCredentials}`;
 };
 
+// Get all patients
 export const fetchPatientData = async () => {
   try {
     const response = await fetch(API_URL, {
@@ -32,7 +36,7 @@ export const fetchPatientData = async () => {
   }
 };
 
-// Get specific patient by name
+// Get patient by name
 export const getPatientByName = async (patientName: string) => {
   try {
     const allPatients = await fetchPatientData();
@@ -44,7 +48,7 @@ export const getPatientByName = async (patientName: string) => {
   }
 };
 
-// Get Jessica Taylor's data (default patient for the dashboard)
+// Get Jessica's data (default patient)
 export const getJessicaTaylorData = async () => {
   return getPatientByName('Jessica Taylor');
 };
