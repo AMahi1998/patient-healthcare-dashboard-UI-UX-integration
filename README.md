@@ -14,10 +14,8 @@ A modern, responsive healthcare dashboard application built with React and TypeS
 
 ## 📸 Dashboard Preview
 
-### Screenshot
 ![Dashboard Screenshot](./docs/screenshots/dashboard-screenshot.png)
 
-### Screen Recording
 [Watch the dashboard demo](./docs/videos/dashboard-demo.mp4)
 
 ## 🚀 Quick Start
@@ -30,7 +28,7 @@ A modern, responsive healthcare dashboard application built with React and TypeS
 
 1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
+git clone <repo-url>
 cd patient-dashboard
 ```
 
@@ -176,8 +174,3 @@ The application includes an error boundary component (`ErrorBoundary.tsx`) that 
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-**Last Updated**: December 27, 2025  
-**Version**: 0.1.0
